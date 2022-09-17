@@ -1,4 +1,5 @@
 package com.makotojava.learn.hellojunit5;
+import java.lang.IllegalArgumentException;
 
 /*
  * Copyright 2017 Makoto Consulting Group, Inc.
@@ -15,6 +16,7 @@ package com.makotojava.learn.hellojunit5;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 public class App {
   /**
    * Computes the sum of the specified operands.
@@ -36,15 +38,21 @@ public class App {
    *           code, son.
    */
   public long add(long[] operands) {
+    if (operands == null) {
+      throw new IllegalArgumentException("Operands argument cannot be null");
+    }
+
+    if (operands.length == 0) {
+      throw new IllegalArgumentException("Operands argument cannot be empty");
+    }
+
     // Compute the sum
-    long ret = Long.MIN_VALUE;
-    // TDD - add this once we run all the unit tests.
-    //
-    // TODO: As an exercise, implement this method so that all of the unit tests
-    /// you write for it pass. Once you do that, you're done!
-    //
-    // Hint: if you get stuck, look at the {@link com.makotojava.learn.hellojunit5.solution.App App class}
-    //
+    long ret = 0;
+
+    for (long l : operands) {
+      ret = ret + l;
+    }
+
     return ret;
   }
 }

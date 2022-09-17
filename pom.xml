@@ -1,7 +1,6 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-
+  
 	<groupId>com.makotojava.learn</groupId>
 	<artifactId>HelloJUnit5</artifactId>
 	<version>1.0.2</version>
@@ -9,95 +8,148 @@
 
 	<name>HelloJUnit5</name>
 	<url>http://maven.apache.org</url>
-
+	
 	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<junit.platform.version>1.0.2</junit.platform.version>
-		<junit.jupiter.version>5.0.2</junit.jupiter.version>
-		<junit.vintage.version>4.12.2</junit.vintage.version>
-		<logback.version>1.2.3</logback.version>
-		<java.version>1.8</java.version>
+	  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	  <exec.mainClass>com.makotojava.learn.hellojunit5.App</exec.mainClass>
 	</properties>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.6.1</version>
-				<configuration>
-					<source>${java.version}</source>
-					<target>${java.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19</version>
-				<dependencies>
-					<dependency>
-						<groupId>org.junit.platform</groupId>
-						<artifactId>junit-platform-surefire-provider</artifactId>
-						<version>${junit.platform.version}</version>
-					</dependency>
-					<dependency>
-						<groupId>org.junit.jupiter</groupId>
-						<artifactId>junit-jupiter-engine</artifactId>
-						<version>${junit.jupiter.version}</version>
-					</dependency>
-				</dependencies>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>3.0.0-M1</version>
-				<configuration>
-					<show>package</show>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.0.1</version>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>test</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
-
+  
+	  <dependencyManagement>
+		  <dependencies>
+			  <dependency>
+				  <groupId>org.junit</groupId>
+				  <artifactId>junit-bom</artifactId>
+				  <version>5.9.0</version>
+				  <type>pom</type>
+				  <scope>import</scope>
+			  </dependency>
+		  </dependencies>
+	  </dependencyManagement>
+  
 	<dependencies>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit.jupiter.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-runner</artifactId>
-			<version>${junit.platform.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>${logback.version}</version>
-		</dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-console-standalone</artifactId>
-      <version>${junit.platform.version}</version>
-      <scope>test</scope>
-    </dependency>
+	  <dependency> 
+		  <groupId>org.apache.logging.log4j</groupId> 
+		  <artifactId>log4j-slf4j-impl</artifactId> 
+		  <version>2.18.0</version> 
+	  </dependency>
+  
+	  <dependency>
+		<groupId>org.junit.jupiter</groupId>
+		<artifactId>junit-jupiter</artifactId>
+		<scope>test</scope>
+	  </dependency>
+  
+	  <dependency>
+		<groupId>org.junit.platform</groupId>
+		<artifactId>junit-platform-console-standalone</artifactId>
+		<version>1.9.0</version>
+	  </dependency>
 	</dependencies>
-
-</project>
+  
+	<build>
+	  <plugins>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-compiler-plugin</artifactId>
+		  <version>3.10.1</version>
+		  <configuration>
+			<source>11</source>
+			<target>11</target>
+		  </configuration>
+		</plugin>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-site-plugin</artifactId>
+		  <version>3.12.1</version>
+		</plugin>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-project-info-reports-plugin</artifactId>
+		  <version>3.4.1</version>
+		</plugin>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-checkstyle-plugin</artifactId>
+		  <version>3.2.0</version>
+		  <configuration>
+			<configLocation>google_checks.xml</configLocation>
+			<encoding>UTF-8</encoding>
+			<consoleOutput>true</consoleOutput>
+			<failsOnError>true</failsOnError>
+			<linkXRef>false</linkXRef>
+		  </configuration>
+		  <executions>
+			<execution>
+			  <?m2e execute onConfiguration?>
+			  <id>validate</id>
+			  <phase>validate</phase>
+			  <goals>
+				<goal>check</goal>
+			  </goals>
+			</execution>
+		  </executions>
+		</plugin>
+  
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-surefire-plugin</artifactId>
+		  <version>3.0.0-M7</version>
+		  <configuration>
+			  <statelessTestsetReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5Xml30StatelessReporter">
+				  <disable>false</disable>
+				  <version>3.0</version>
+				  <usePhrasedFileName>false</usePhrasedFileName>
+				  <usePhrasedTestSuiteClassName>true</usePhrasedTestSuiteClassName>
+				  <usePhrasedTestCaseClassName>true</usePhrasedTestCaseClassName>
+				  <usePhrasedTestCaseMethodName>true</usePhrasedTestCaseMethodName>
+			  </statelessTestsetReporter>
+			  <consoleOutputReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5ConsoleOutputReporter">
+				  <disable>false</disable>
+				  <encoding>UTF-8</encoding>
+				  <usePhrasedFileName>false</usePhrasedFileName>
+			  </consoleOutputReporter>
+			  <statelessTestsetInfoReporter implementation="org.apache.maven.plugin.surefire.extensions.junit5.JUnit5StatelessTestsetInfoReporter">
+				  <disable>false</disable>
+				  <usePhrasedFileName>false</usePhrasedFileName>
+				  <usePhrasedClassNameInRunning>true</usePhrasedClassNameInRunning>
+				  <usePhrasedClassNameInTestCaseSummary>true</usePhrasedClassNameInTestCaseSummary>
+			  </statelessTestsetInfoReporter>
+		  </configuration>
+	  </plugin>
+  
+	  <plugin>
+		<groupId>org.codehaus.mojo</groupId>
+		<artifactId>exec-maven-plugin</artifactId>
+		<version>3.1.0</version>
+		<executions>
+			<execution>
+				<goals>
+					<goal>java</goal>
+				</goals>
+			</execution>
+		</executions>
+		<configuration>
+			<mainClass>org.junit.platform.console.ConsoleLauncher</mainClass>
+			<arguments>
+				<argument>--disable-banner</argument>
+				<argument>--class-path=./target/test-classes</argument>
+				<argument>--scan-classpath</argument>
+			</arguments>
+		</configuration>
+	  </plugin>
+	  </plugins>
+	</build>
+  
+	<reporting>
+	  <plugins>
+		<plugin>
+		  <groupId>org.apache.maven.plugins</groupId>
+		  <artifactId>maven-javadoc-plugin</artifactId>
+		  <version>3.4.1</version>
+		  <configuration>
+			<source>11</source>
+		  </configuration>
+		</plugin>
+	  </plugins>
+	</reporting>
+  </project>
